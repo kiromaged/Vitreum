@@ -1,0 +1,135 @@
+{% assign vortex_limit = section.settings.product_limit | default: 18 %}
+
+<section class="vitreum-vortex" data-vitreum-vortex data-scroll-motion="{{ section.settings.scroll_motion }}" data-section-id="{{ section.id }}">
+  <div class="vitreum-vortex__scroll" data-vitreum-vortex-scroll>
+    <div class="vitreum-vortex__stage" data-vitreum-vortex-stage>
+      <div class="vitreum-vortex__header">
+        <p class="vitreum-eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2>{{ section.settings.title }}</h2>
+        <p>{{ section.settings.description }}</p>
+      </div>
+
+      <div class="vitreum-vortex__particles" aria-hidden="true">
+        {% for particle in (1..24) %}
+          <span
+            class="vitreum-vortex__particle"
+            data-vitreum-vortex-particle
+            style="--particle-x: {{ particle | times: 13 | modulo: 86 | minus: 43 }}; --particle-y: {{ particle | times: 19 | modulo: 74 | minus: 37 }}; --particle-size: {{ particle | modulo: 4 | plus: 2 }}px;"
+          ></span>
+        {% endfor %}
+      </div>
+
+      <div class="vitreum-vortex__products" aria-label="Featured products in the collection">
+        {% for product in collection.products limit: vortex_limit %}
+          <a
+            class="vitreum-vortex__product"
+            data-vitreum-vortex-card
+            data-index="{{ forloop.index0 }}"
+            data-product-id="{{ product.id }}"
+            data-product-handle="{{ product.handle | escape }}"
+            href="{{ product.url }}"
+            aria-label="View {{ product.title | escape }}"
+          >
+            <span class="vitreum-vortex__product-media">
+              {% render 'vitreum-product-visual', product: product, section: section, context: 'vortex' %}
+            </span>
+            <span class="vitreum-vortex__product-info">
+              <span>{{ product.title }}</span>
+              <span>{{ product.price | money }}</span>
+            </span>
+          </a>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.scroll_motion %}
+        <div class="vitreum-vortex__progress" aria-hidden="true">
+          {{ section.settings.progress_label }} <span data-vitreum-vortex-progress>00 / 100</span>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vitreum product vortex",
+  "tag": "section",
+  "class": "vitreum-vortex-section",
+  "enabled_on": {
+    "templates": [
+      "collection"
+    ]
+  },
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "scroll_motion",
+      "label": "Animate vortex on scroll",
+      "default": false,
+      "info": "Leave off for a fixed 3D arrangement. Products remain clickable."
+    },
+    {
+      "type": "paragraph",
+      "content": "Cut-outs: use product metafield custom.vitreum_cutout (File, images only) for a shared asset, or add a Product cut-out block to override it here. Products without cut-outs use their original photos."
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Enter the vortex"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "From chaos into art."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Every fragment has a story. Discover one-of-one glass artwork, held in balance."
+    },
+    {
+      "type": "text",
+      "id": "progress_label",
+      "label": "Progress label",
+      "default": "Transformation"
+    },
+    {
+      "type": "range",
+      "id": "product_limit",
+      "label": "Vortex product count",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 18
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vitreum product vortex"
+    }
+  ],
+  "max_blocks": 24,
+  "blocks": [
+    {
+      "type": "product_cutout",
+      "name": "Product cut-out",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Transparent artwork",
+          "info": "Use a background-removed PNG or WebP. Used only in this section; the original catalog image is preserved."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

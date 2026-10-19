@@ -1,0 +1,177 @@
+{% assign story_collection = section.settings.collection | default: collections.all %}
+{% assign story_product_one = story_collection.products.first %}
+{% assign story_product_two = story_collection.products[1] %}
+{% assign story_product_three = story_collection.products[3] %}
+{% assign story_product_four = story_collection.products[2] %}
+
+<section class="vitreum-story" data-vitreum-story data-section-id="{{ section.id }}">
+  <div class="vitreum-story__intro">
+    <div>
+      <p class="vitreum-eyebrow">{{ section.settings.intro_eyebrow }}</p>
+      <h2>{{ section.settings.intro_title }}</h2>
+    </div>
+    <div class="vitreum-story__visual">
+      {% render 'vitreum-story-product', product: story_product_one, section: section %}
+    </div>
+  </div>
+
+  <article class="vitreum-story__chapter" data-vitreum-chapter>
+    <div>
+      <p class="vitreum-eyebrow">Chapter 01 / Origin</p>
+      <h2>{{ section.settings.chapter_one_title }}</h2>
+    </div>
+    <div class="vitreum-story__visual">
+      {% render 'vitreum-story-product', product: story_product_two, section: section %}
+    </div>
+    <div class="vitreum-story__fragment-field" aria-hidden="true">
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+    </div>
+  </article>
+
+  <article class="vitreum-story__chapter vitreum-story__chapter--dark" data-vitreum-chapter>
+    <div>
+      <p class="vitreum-eyebrow">Chapter 02 / Process</p>
+      <h2>{{ section.settings.chapter_two_title }}</h2>
+    </div>
+    <div class="vitreum-story__visual">
+      {% render 'vitreum-story-product', product: story_product_three, section: section %}
+    </div>
+    <div class="vitreum-story__fragment-field" aria-hidden="true">
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+    </div>
+  </article>
+
+  <article class="vitreum-story__chapter" data-vitreum-chapter>
+    <div>
+      <p class="vitreum-eyebrow">Chapter 03 / Individuality</p>
+      <h2>{{ section.settings.chapter_three_title }}</h2>
+    </div>
+    <div class="vitreum-story__visual">
+      {% render 'vitreum-story-product', product: story_product_four, section: section %}
+    </div>
+    <div class="vitreum-story__fragment-field" aria-hidden="true">
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+      <span class="vitreum-story__fragment"></span>
+    </div>
+  </article>
+
+  <div class="vitreum-story__outro">
+    <div>
+      <p class="vitreum-eyebrow">Chapter 04 / Invitation</p>
+      <h2>{{ section.settings.outro_title }}</h2>
+    </div>
+    <div>
+      <p>{{ section.settings.outro_copy }}</p>
+      <a class="vitreum-button" href="{{ section.settings.outro_link }}">{{ section.settings.outro_label }}</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vitreum story chapters",
+  "tag": "section",
+  "class": "vitreum-story-section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Cut-outs: use product metafield custom.vitreum_cutout (File, images only) for a shared asset, or add a Product cut-out block to override it here. Products without cut-outs use their original photos."
+    },
+    {
+      "type": "text",
+      "id": "intro_eyebrow",
+      "label": "Intro eyebrow",
+      "default": "The art of transformation"
+    },
+    {
+      "type": "text",
+      "id": "intro_title",
+      "label": "Intro title",
+      "default": "Where glass becomes art."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Story product collection"
+    },
+    {
+      "type": "text",
+      "id": "chapter_one_title",
+      "label": "Chapter one title",
+      "default": "Beauty begins with fragments."
+    },
+    {
+      "type": "text",
+      "id": "chapter_two_title",
+      "label": "Chapter two title",
+      "default": "Chaos. Reimagined."
+    },
+    {
+      "type": "text",
+      "id": "chapter_three_title",
+      "label": "Chapter three title",
+      "default": "Every piece is one of one."
+    },
+    {
+      "type": "text",
+      "id": "outro_title",
+      "label": "Invitation title",
+      "default": "Be the first to own it."
+    },
+    {
+      "type": "textarea",
+      "id": "outro_copy",
+      "label": "Invitation copy",
+      "default": "Enter the collection and find the piece that changes the room around it."
+    },
+    {
+      "type": "text",
+      "id": "outro_label",
+      "label": "Invitation button label",
+      "default": "Enter the collection"
+    },
+    {
+      "type": "url",
+      "id": "outro_link",
+      "label": "Invitation button link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vitreum story chapters"
+    }
+  ],
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "product_cutout",
+      "name": "Product cut-out",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Transparent artwork",
+          "info": "Use a background-removed PNG or WebP. Used only in this section; the original catalog image is preserved."
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

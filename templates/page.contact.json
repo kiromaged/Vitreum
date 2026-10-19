@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "vitreum-contact",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

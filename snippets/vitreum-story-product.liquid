@@ -1,0 +1,11 @@
+{% if product != blank %}
+  <a class="vitreum-story__product" data-product-handle="{{ product.handle | escape }}" href="{{ product.url }}" aria-label="View {{ product.title | escape }}">
+    <span class="vitreum-story__product-media">
+      {% render 'vitreum-product-visual', product: product, section: section, context: 'story' %}
+    </span>
+    <span class="vitreum-story__product-caption">
+      <span>{{ product.title }}</span>
+      <span>{{ product.price | money }}</span>
+    </span>
+  </a>
+{% endif %}

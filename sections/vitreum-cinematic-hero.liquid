@@ -1,0 +1,102 @@
+<section
+  class="vitreum-hero"
+  data-vitreum-hero
+  data-section-id="{{ section.id }}"
+  aria-labelledby="VitreumHeroTitle-{{ section.id }}"
+>
+  <div class="vitreum-hero__media" aria-hidden="true">
+    {% if section.settings.image != blank %}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'vitreum-hero__image',
+          widths: '800, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          loading: 'eager',
+          fetchpriority: 'high',
+          alt: ''
+      }}
+    {% else %}
+      <div class="vitreum-hero__fallback"></div>
+    {% endif %}
+  </div>
+
+  <div class="vitreum-hero__content">
+    <p class="vitreum-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1 class="vitreum-hero__title" id="VitreumHeroTitle-{{ section.id }}">
+      <span><span>{{ section.settings.title_line_1 }}</span></span>
+      <span><span>{{ section.settings.title_line_2 }}</span></span>
+      <span><span>{{ section.settings.title_line_3 }}</span></span>
+    </h1>
+    <p class="vitreum-hero__description">{{ section.settings.description }}</p>
+    <div class="vitreum-hero__meta">
+      {% if section.settings.cta_link != blank %}
+        <a class="vitreum-button" href="{{ section.settings.cta_link }}">{{ section.settings.cta_label }}</a>
+      {% endif %}
+      <span class="vitreum-hero__scroll-note">Scroll to enter the exhibition</span>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vitreum cinematic hero",
+  "tag": "section",
+  "class": "vitreum-hero-section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Hero artwork"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Vitreum / objects in glass"
+    },
+    {
+      "type": "text",
+      "id": "title_line_1",
+      "label": "Title line one",
+      "default": "From shattered"
+    },
+    {
+      "type": "text",
+      "id": "title_line_2",
+      "label": "Title line two",
+      "default": "pieces, we create"
+    },
+    {
+      "type": "text",
+      "id": "title_line_3",
+      "label": "Title line three",
+      "default": "order."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "One-of-one glass creations, handcrafted to turn fragments into something extraordinary."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "Button label",
+      "default": "Explore the collection"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Vitreum cinematic hero"
+    }
+  ]
+}
+{% endschema %}

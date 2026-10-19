@@ -1,0 +1,1160 @@
+:root {
+  --vitreum-ivory: #f6f2eb;
+  --vitreum-porcelain: #faf8f4;
+  --vitreum-champagne: #d8c6ab;
+  --vitreum-silver: #c9d1d5;
+  --vitreum-smoke: #72838c;
+  --vitreum-charcoal: #191b1e;
+  --vitreum-graphite: #101214;
+  --vitreum-line: rgb(25 27 30 / 0.14);
+  --vitreum-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --vitreum-artwork-ratio: 4 / 5;
+}
+
+body {
+  background: var(--vitreum-ivory);
+  color: var(--vitreum-charcoal);
+}
+
+.vitreum-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0;
+  color: currentColor;
+  font-family: var(--font-accent--family);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1.3;
+  text-transform: uppercase;
+}
+
+.vitreum-eyebrow::before {
+  width: 1.9rem;
+  height: 1px;
+  background: currentColor;
+  content: '';
+  opacity: 0.6;
+}
+
+.vitreum-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3rem;
+  padding: 0.8rem 1.25rem;
+  border: 1px solid currentColor;
+  border-radius: 999px;
+  color: inherit;
+  font-family: var(--font-accent--family);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: background-color 260ms var(--vitreum-ease), color 260ms var(--vitreum-ease), transform 260ms var(--vitreum-ease);
+}
+
+.vitreum-button:hover,
+.vitreum-button:focus-visible {
+  background: var(--vitreum-graphite);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.vitreum-button:focus-visible,
+.vitreum-contact__form :is(input, textarea):focus-visible {
+  outline: 2px solid var(--vitreum-champagne);
+  outline-offset: 4px;
+}
+
+/* Cinematic hero */
+.vitreum-hero {
+  position: relative;
+  min-height: clamp(34rem, 72svh, 54rem);
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--vitreum-graphite);
+  color: #fff;
+}
+
+.vitreum-hero__media {
+  position: absolute;
+  inset: 0;
+}
+
+.vitreum-hero__media {
+  z-index: -2;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 70% 30%, rgb(216 198 171 / 0.24), transparent 30%),
+    linear-gradient(135deg, #252a2d 0%, var(--vitreum-graphite) 70%);
+}
+
+.vitreum-hero__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 1;
+  transform: scale(1.08) translate3d(calc(var(--pointer-x, 0) * 0.35px), calc(var(--pointer-y, 0) * 0.35px), 0);
+  transition: transform 900ms var(--vitreum-ease), clip-path 1200ms var(--vitreum-ease);
+  clip-path: inset(0 0 100% 0);
+}
+
+.vitreum-hero.is-ready .vitreum-hero__image {
+  clip-path: inset(0);
+}
+
+.vitreum-hero__fallback {
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(circle at 62% 35%, rgb(216 198 171 / 0.34), transparent 10%),
+    radial-gradient(circle at 62% 35%, transparent 0 20%, rgb(201 209 213 / 0.16) 20.3% 20.6%, transparent 21%),
+    linear-gradient(120deg, #30373a, #111516 68%);
+}
+
+.vitreum-hero__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: min(100% - 2.5rem, 86rem);
+  min-height: inherit;
+  margin: 0 auto;
+  padding: clamp(7rem, 16vh, 11rem) 0 clamp(3rem, 8vh, 6rem);
+}
+
+.vitreum-hero__title {
+  max-width: 10ch;
+  margin: 1.25rem 0 1.5rem;
+  font-family: var(--font-heading--family);
+  font-size: clamp(3rem, 8.6vw, 8.8rem);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.87;
+  text-wrap: balance;
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.75), 0 6px 24px rgb(0 0 0 / 0.35);
+}
+
+.vitreum-hero :is(.vitreum-eyebrow, .vitreum-hero__description, .vitreum-hero__scroll-note, .vitreum-button) {
+  text-shadow: 0 1px 3px rgb(0 0 0 / 0.8);
+}
+
+.vitreum-hero__title span {
+  display: block;
+  overflow: hidden;
+}
+
+.vitreum-hero__title span > span {
+  display: inline-block;
+  transform: translateY(115%);
+  transition: transform 900ms var(--vitreum-ease);
+}
+
+.vitreum-hero.is-ready .vitreum-hero__title span > span {
+  transform: translateY(0);
+}
+
+.vitreum-hero__title span:nth-child(2) > span {
+  transition-delay: 100ms;
+}
+
+.vitreum-hero__title span:nth-child(3) > span {
+  transition-delay: 180ms;
+}
+
+.vitreum-hero__description {
+  max-width: 32rem;
+  margin: 0 0 2rem;
+  color: #fff;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.vitreum-hero__meta {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.vitreum-hero__scroll-note {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #fff;
+  font-family: var(--font-accent--family);
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.vitreum-hero__scroll-note::before {
+  width: 3.5rem;
+  height: 1px;
+  background: currentColor;
+  content: '';
+}
+
+/* Storytelling chapters */
+.vitreum-story {
+  overflow: hidden;
+  background: var(--vitreum-ivory);
+  color: var(--vitreum-charcoal);
+}
+
+.vitreum-story__intro,
+.vitreum-story__chapter,
+.vitreum-story__outro {
+  width: min(100% - 2.5rem, 86rem);
+  margin: 0 auto;
+}
+
+.vitreum-story__intro {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1fr);
+  gap: clamp(1.5rem, 4vw, 5rem);
+  align-items: center;
+  min-height: 62svh;
+  padding: 8rem 0 7rem;
+}
+
+.vitreum-story__intro h2,
+.vitreum-story__chapter h2,
+.vitreum-story__outro h2 {
+  margin: 1.2rem 0 0;
+  font-family: var(--font-heading--family);
+  font-size: clamp(3rem, 7vw, 8rem);
+  font-weight: 500;
+  letter-spacing: -0.07em;
+  line-height: 0.88;
+  text-wrap: balance;
+}
+
+.vitreum-story__intro p:last-child,
+.vitreum-story__chapter-copy,
+.vitreum-story__outro p {
+  max-width: 30rem;
+  margin: 0 0 0 auto;
+  color: rgb(25 27 30 / 0.66);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.vitreum-story__chapter {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1fr);
+  gap: clamp(1.5rem, 4vw, 5rem);
+  align-items: center;
+  min-height: 74svh;
+  padding: 8rem 0;
+}
+
+.vitreum-story__chapter::before {
+  position: absolute;
+  inset: 12% auto 12% 38%;
+  width: 1px;
+  background: linear-gradient(transparent, var(--vitreum-line), transparent);
+  content: '';
+}
+
+.vitreum-story__chapter--dark {
+  width: 100%;
+  padding-inline: max(1.25rem, calc((100% - 86rem) / 2));
+  background: var(--vitreum-graphite);
+  color: var(--vitreum-porcelain);
+}
+
+.vitreum-story__chapter--dark::after {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at 75% 48%, rgb(216 198 171 / 0.16), transparent 28%);
+  content: '';
+  pointer-events: none;
+}
+
+.vitreum-story__chapter > * {
+  position: relative;
+  z-index: 1;
+}
+
+.vitreum-story__chapter h2 {
+  max-width: 8ch;
+  transform: translateY(calc((1 - var(--chapter-progress, 0)) * 2.5rem));
+  opacity: calc(0.28 + var(--chapter-progress, 0) * 0.72);
+  transition: opacity 180ms linear;
+}
+
+.vitreum-story__chapter-copy {
+  color: inherit;
+  opacity: calc(0.45 + var(--chapter-progress, 0) * 0.55);
+  transform: translateY(calc((1 - var(--chapter-progress, 0)) * 1.5rem));
+}
+
+.vitreum-story__fragment-field {
+  position: absolute;
+  inset: 10% 4% 10% auto;
+  width: 35%;
+  pointer-events: none;
+}
+
+.vitreum-story__fragment {
+  position: absolute;
+  display: block;
+  width: clamp(2rem, 5vw, 5rem);
+  aspect-ratio: 0.64;
+  border: 1px solid currentColor;
+  background: linear-gradient(145deg, rgb(250 248 244 / 0.18), transparent 68%);
+  opacity: 0.35;
+  transform: translate3d(calc(var(--fragment-x) * 1%), calc(var(--fragment-y) * 1%), 0) rotate(var(--fragment-r));
+  transition: transform 1200ms var(--vitreum-ease);
+}
+
+.vitreum-story__fragment:nth-child(1) { --fragment-x: 8; --fragment-y: 15; --fragment-r: 24deg; }
+.vitreum-story__fragment:nth-child(2) { --fragment-x: 46; --fragment-y: 4; --fragment-r: -18deg; }
+.vitreum-story__fragment:nth-child(3) { --fragment-x: 78; --fragment-y: 32; --fragment-r: 52deg; }
+.vitreum-story__fragment:nth-child(4) { --fragment-x: 25; --fragment-y: 62; --fragment-r: -42deg; }
+.vitreum-story__fragment:nth-child(5) { --fragment-x: 70; --fragment-y: 76; --fragment-r: 14deg; }
+
+.vitreum-story__outro {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(14rem, 0.5fr);
+  gap: 3rem;
+  align-items: end;
+  min-height: 70svh;
+  padding: 9rem 0;
+}
+
+.vitreum-story__outro .vitreum-button {
+  justify-self: end;
+  margin-bottom: 0.5rem;
+}
+
+.vitreum-story__visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(26rem, 42vw, 40rem);
+  perspective: 900px;
+}
+
+.vitreum-story__product {
+  display: block;
+  width: min(100%, 28rem);
+  border: 0;
+  background: transparent;
+  color: var(--vitreum-charcoal);
+  text-decoration: none;
+  transform: translate3d(var(--story-x, 0px), var(--story-y, 0px), var(--story-z, 0px))
+    rotateY(var(--story-yaw, -8deg)) rotateX(var(--story-pitch, 0deg)) rotateZ(var(--story-roll, -2deg))
+    scale(var(--story-scale, 1));
+  transform-style: preserve-3d;
+  will-change: transform;
+  transition: transform 500ms var(--vitreum-ease), box-shadow 500ms var(--vitreum-ease);
+}
+
+.vitreum-story__chapter--dark .vitreum-story__product {
+  background: transparent;
+  color: var(--vitreum-porcelain);
+  --story-yaw: 8deg;
+  --story-roll: 2deg;
+}
+
+.vitreum-story__product:hover,
+.vitreum-story__product:focus-visible {
+  box-shadow: none;
+  --story-y: -6px;
+  --story-yaw: 0deg;
+  --story-roll: 0deg;
+}
+
+.vitreum-story__product:focus-visible {
+  outline: 2px solid var(--vitreum-champagne);
+  outline-offset: 5px;
+}
+
+.vitreum-story__product-media {
+  display: block;
+  aspect-ratio: 0.82;
+  overflow: hidden;
+  background: transparent;
+}
+
+/* True alpha comes from a separate asset, never a blend mode or color key. */
+.vitreum-object {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+}
+
+.vitreum-object .vitreum-object__image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.vitreum-object[data-visual-kind='cutout'] .vitreum-object__image {
+  padding: 0;
+}
+
+.vitreum-story__product-media img {
+  width: 100%;
+  height: 100%;
+  padding: 0.75rem;
+  object-fit: contain;
+}
+
+/* Match the catalog crop across both immersive presentations. Genuine cut-outs
+   retain contain sizing; only the original square catalog photo is cropped. */
+:is(.vitreum-story__product, .vitreum-vortex__product)[data-product-handle='belevedere']
+  > :is(.vitreum-story__product-media, .vitreum-vortex__product-media) {
+  aspect-ratio: var(--vitreum-artwork-ratio);
+}
+
+:is(.vitreum-story__product, .vitreum-vortex__product)[data-product-handle='belevedere']
+  .vitreum-object[data-visual-kind='catalog'] .vitreum-object__image {
+  padding: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
+.vitreum-story__product-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.8rem 0.9rem;
+  font-family: var(--font-accent--family);
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
+.vitreum-story__product-caption span:last-child {
+  opacity: 0.58;
+  white-space: nowrap;
+}
+
+/* Private commission request */
+.vitreum-custom {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(20rem, 1fr);
+  gap: clamp(3rem, 10vw, 10rem);
+  width: min(100% - 2.5rem, 86rem);
+  margin: 0 auto;
+  padding: clamp(6rem, 12vw, 11rem) 0;
+  background: var(--vitreum-porcelain);
+  color: var(--vitreum-charcoal);
+}
+
+.vitreum-custom__intro h2 {
+  max-width: 9ch;
+  margin: 1.2rem 0 1.5rem;
+  font-family: var(--font-heading--family);
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 500;
+  letter-spacing: -0.075em;
+  line-height: 0.88;
+}
+
+.vitreum-custom__intro p:not(.vitreum-eyebrow) {
+  max-width: 28rem;
+  margin: 0 0 1.6rem;
+  color: rgb(25 27 30 / 0.66);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.vitreum-custom__panel {
+  align-self: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+  border: 1px solid var(--vitreum-line);
+  background: var(--vitreum-ivory);
+}
+
+.vitreum-custom__form {
+  display: grid;
+  gap: 1.2rem;
+}
+
+.vitreum-custom__field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.vitreum-custom__field label {
+  color: rgb(25 27 30 / 0.62);
+  font-family: var(--font-accent--family);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.vitreum-custom__form :is(input, textarea) {
+  width: 100%;
+  padding: 0.8rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--vitreum-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--vitreum-charcoal);
+  font-size: 1rem;
+}
+
+.vitreum-custom__form textarea {
+  min-height: 7rem;
+  resize: vertical;
+}
+
+.vitreum-custom__form :is(input, textarea)::placeholder {
+  color: rgb(25 27 30 / 0.4);
+}
+
+.vitreum-custom__form .vitreum-button {
+  justify-self: start;
+  margin-top: 0.5rem;
+  background: var(--vitreum-charcoal);
+  color: var(--vitreum-porcelain);
+}
+
+.vitreum-custom__form .vitreum-button:hover,
+.vitreum-custom__form .vitreum-button:focus-visible {
+  background: var(--vitreum-champagne);
+  color: var(--vitreum-charcoal);
+}
+
+.vitreum-custom__success,
+.vitreum-custom__errors {
+  padding: 0.9rem;
+  border: 1px solid var(--vitreum-line);
+}
+
+.vitreum-custom__success {
+  background: rgb(92 118 95 / 0.08);
+}
+
+.vitreum-custom__errors {
+  background: rgb(137 65 53 / 0.08);
+}
+
+/* Product list refinement */
+.ui-test-product-list {
+  background: var(--vitreum-porcelain);
+  color: var(--vitreum-charcoal);
+}
+
+.ui-test-product-list .section-resource-list__header {
+  max-width: 86rem;
+  margin-inline: auto;
+  padding-inline: 1.25rem;
+}
+
+.ui-test-product-list .resource-list {
+  max-width: 86rem;
+  margin-inline: auto;
+}
+
+.ui-test-product-list .product-card,
+.ui-test-product-list .product-card__content {
+  background: transparent;
+}
+
+.ui-test-product-list .product-card__content {
+  padding: 0.5rem 0 0;
+}
+
+.ui-test-product-list .product-card:hover {
+  transform: translateY(-6px);
+}
+
+/* Product detail gallery */
+.product-information {
+  background: var(--vitreum-ivory);
+  color: var(--vitreum-charcoal);
+}
+
+.product-information__grid {
+  width: min(100% - 2.5rem, 86rem);
+  margin-inline: auto;
+  gap: clamp(2rem, 7vw, 8rem);
+}
+
+.product-information__media {
+  background: var(--vitreum-porcelain);
+}
+
+.product-information__media .product-media-container {
+  border: 1px solid var(--vitreum-line);
+  background: var(--vitreum-porcelain);
+}
+
+/* One main image with native Shopify navigation and a thumbnail strip below. */
+@media screen and (min-width: 750px) {
+  .product-information__media .media-gallery--carousel .product-media-container.constrain-height {
+    --constrained-height: min(720px, max(420px, calc(100svh - var(--header-height, 100px) - 140px)));
+  }
+}
+
+.product-information__media .media-gallery--carousel slideshow-arrows {
+  padding-inline: 0.75rem;
+}
+
+.product-information__media .media-gallery--carousel slideshow-arrows .slideshow-control {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgb(25 27 30 / 0.5);
+  color: #fff;
+}
+
+.product-information__media .media-gallery--carousel slideshow-arrows .slideshow-control:hover {
+  background: var(--vitreum-graphite);
+  color: #fff;
+}
+
+.product-information__media .media-gallery--carousel .slideshow-controls__thumbnails {
+  margin-inline: 0;
+  gap: 12px;
+}
+
+.product-information__media .media-gallery--carousel .slideshow-controls__thumbnails .slideshow-control {
+  aspect-ratio: 1;
+}
+
+.product-information__media .media-gallery--carousel .slideshow-controls__thumbnails img {
+  object-fit: contain;
+  background: #fff;
+}
+
+/* Match BELEVEDERE's primary photo to the shared catalog portrait ratio.
+   Keep alternate bottle photos and the full-resolution zoom dialog unchanged. */
+.product-information[data-product-handle='belevedere'] .product-information__media
+  :is(.media-gallery__grid, slideshow-slides) > .product-media-container:first-child {
+  --gallery-aspect-ratio: var(--vitreum-artwork-ratio);
+  height: auto;
+  align-self: start;
+}
+
+.product-information[data-product-handle='belevedere'] .product-information__media
+  :is(.media-gallery__grid, slideshow-component)
+  .product-media[data-primary-media='true'] .product-media__image {
+  object-fit: cover;
+  object-position: center;
+}
+
+@media screen and (min-width: 750px) {
+  .product-information[data-product-handle='belevedere'] .product-information__media
+    .media-gallery--carousel slideshow-slides > .product-media-container:first-child
+    .product-media[data-primary-media='true'] {
+    flex: none;
+    width: min(100%, calc((var(--constrained-height) - 2px) * 0.8));
+    margin-inline: auto;
+    align-self: center;
+  }
+}
+
+.product-details {
+  align-self: center;
+  max-width: 32rem;
+}
+
+.vitreum-payment-note {
+  display: grid;
+  gap: 0.25rem;
+  width: 100%;
+  margin: 0.75rem 0 0;
+  color: inherit;
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.vitreum-payment-note strong {
+  font-weight: 600;
+}
+
+.product-details h1,
+.product-details .product-title {
+  font-family: var(--font-heading--family);
+  font-weight: 500;
+  letter-spacing: -0.06em;
+}
+
+.product-details .button,
+.product-details .shopify-payment-button__button {
+  min-height: 3.25rem;
+  border-radius: 999px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+/* Collection vortex */
+.vitreum-vortex {
+  position: relative;
+  overflow: hidden;
+  overflow: clip;
+  background: var(--vitreum-graphite);
+  color: var(--vitreum-porcelain);
+}
+
+.vitreum-vortex__scroll {
+  min-height: 320svh;
+}
+
+.vitreum-vortex.is-fixed .vitreum-vortex__scroll {
+  min-height: 0;
+}
+
+.vitreum-vortex.is-fixed .vitreum-vortex__stage {
+  position: relative;
+}
+
+.vitreum-vortex.is-fixed .vitreum-vortex__progress {
+  display: none;
+}
+
+.vitreum-vortex.is-fixed .vitreum-vortex__product {
+  will-change: auto;
+}
+
+.vitreum-vortex.is-fixed .vitreum-vortex__products {
+  left: clamp(2rem, 6vw, 6rem);
+}
+
+@media screen and (max-width: 749px) {
+  .vitreum-vortex.is-fixed .vitreum-vortex__products {
+    left: 0.5rem;
+  }
+}
+
+.vitreum-vortex__stage {
+  position: sticky;
+  top: 0;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  height: 100svh;
+  min-height: 40rem;
+  overflow: hidden;
+  perspective: 1300px;
+  perspective-origin: 50% 46%;
+  transform-style: preserve-3d;
+}
+
+.vitreum-vortex__stage::before,
+.vitreum-vortex__stage::after {
+  position: absolute;
+  border-radius: 50%;
+  content: '';
+  pointer-events: none;
+}
+
+.vitreum-vortex__stage::before {
+  width: min(75vw, 60rem);
+  aspect-ratio: 1;
+  border: 1px solid rgb(216 198 171 / 0.18);
+  box-shadow: 0 0 0 4rem rgb(216 198 171 / 0.025), 0 0 0 10rem rgb(201 209 213 / 0.018);
+  transform: rotateX(64deg) translateZ(-120px);
+}
+
+.vitreum-vortex__stage::after {
+  inset: 0;
+  background: radial-gradient(circle at 50% 45%, transparent 0 16%, rgb(16 18 20 / 0.2) 45%, rgb(16 18 20 / 0.7) 100%);
+}
+
+.vitreum-vortex__header {
+  position: absolute;
+  z-index: 4;
+  top: clamp(5rem, 12vh, 9rem);
+  left: max(1.25rem, calc((100% - 86rem) / 2));
+  max-width: 21rem;
+}
+
+.vitreum-vortex__header h2 {
+  margin: 1.1rem 0 1rem;
+  font-family: var(--font-heading--family);
+  font-size: clamp(3rem, 7vw, 7.5rem);
+  font-weight: 500;
+  letter-spacing: -0.075em;
+  line-height: 0.86;
+}
+
+.vitreum-vortex__header p:last-child {
+  margin: 0;
+  color: rgb(250 248 244 / 0.66);
+  line-height: 1.6;
+}
+
+.vitreum-vortex__progress {
+  position: absolute;
+  z-index: 4;
+  right: max(1.25rem, calc((100% - 86rem) / 2));
+  bottom: 2rem;
+  color: rgb(250 248 244 / 0.56);
+  font-family: var(--font-accent--family);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.vitreum-vortex__products {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 62rem);
+  height: min(100%, 42rem);
+  transform-style: preserve-3d;
+}
+
+.vitreum-vortex__product {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: clamp(7rem, 14vw, 13rem);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--vitreum-porcelain);
+  text-decoration: none;
+  transform: translate3d(-50%, -50%, 0);
+  transform-style: preserve-3d;
+  transition: border-color 260ms ease, box-shadow 260ms ease;
+  backface-visibility: hidden;
+  contain: layout paint;
+  will-change: transform, opacity;
+}
+
+.vitreum-vortex__product:hover,
+.vitreum-vortex__product:focus-visible {
+  box-shadow: none;
+}
+
+.vitreum-vortex__product:focus-visible {
+  outline: 2px solid var(--vitreum-champagne);
+  outline-offset: 5px;
+}
+
+.vitreum-vortex__product-media {
+  display: block;
+  aspect-ratio: 0.78;
+  overflow: hidden;
+  background: transparent;
+}
+
+.vitreum-vortex__product-media img {
+  width: 100%;
+  height: 100%;
+  padding: 0.45rem;
+  object-fit: contain;
+}
+
+.vitreum-vortex__product-info {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  font-size: 0.7rem;
+}
+
+.vitreum-vortex__product-info span:last-child {
+  color: rgb(250 248 244 / 0.58);
+  white-space: nowrap;
+}
+
+.vitreum-vortex__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.vitreum-vortex__particle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: var(--particle-size, 4px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--vitreum-champagne);
+  box-shadow: 0 0 1.2rem rgb(216 198 171 / 0.7);
+  opacity: 0.4;
+  transform: translate3d(calc(var(--particle-x) * 1vw), calc(var(--particle-y) * 1vh), 0);
+}
+
+.vitreum-vortex:not(.is-enhanced) .vitreum-vortex__scroll {
+  min-height: 0;
+}
+
+.vitreum-vortex:not(.is-enhanced) .vitreum-vortex__stage {
+  position: relative;
+  height: auto;
+  min-height: 0;
+  padding: 7rem 1.25rem;
+}
+
+.vitreum-vortex:not(.is-enhanced) .vitreum-vortex__header {
+  position: relative;
+  inset: auto;
+  margin-bottom: 3rem;
+}
+
+.vitreum-vortex:not(.is-enhanced) .vitreum-vortex__products {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  width: 100%;
+  height: auto;
+}
+
+.vitreum-vortex:not(.is-enhanced) .vitreum-vortex__product {
+  position: relative;
+  top: auto;
+  left: auto;
+  width: auto;
+  transform: none !important;
+}
+
+.vitreum-grid-target .product-grid-container {
+  opacity: calc(0.84 + var(--vortex-grid-reveal, 1) * 0.16);
+  transform: translateY(calc((1 - var(--vortex-grid-reveal, 1)) * 1.5rem));
+  transition: opacity 420ms var(--vitreum-ease), transform 620ms var(--vitreum-ease);
+}
+
+/* Light gallery contact page */
+.vitreum-contact {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(20rem, 1fr);
+  gap: clamp(3rem, 10vw, 10rem);
+  width: min(100% - 2.5rem, 86rem);
+  margin: 0 auto;
+  padding: clamp(5rem, 12vw, 11rem) 0;
+  background: var(--vitreum-ivory);
+}
+
+.vitreum-contact__intro h1 {
+  max-width: 8ch;
+  margin: 1.2rem 0 1.5rem;
+  font-family: var(--font-heading--family);
+  font-size: clamp(3.5rem, 8vw, 8rem);
+  font-weight: 500;
+  letter-spacing: -0.08em;
+  line-height: 0.86;
+}
+
+.vitreum-contact__intro p {
+  max-width: 26rem;
+  color: rgb(25 27 30 / 0.66);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+.vitreum-contact__form {
+  display: grid;
+  gap: 1.4rem;
+  align-self: center;
+}
+
+.vitreum-contact__field {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.vitreum-contact__field label {
+  color: rgb(25 27 30 / 0.62);
+  font-family: var(--font-accent--family);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.vitreum-contact__form :is(input, textarea) {
+  width: 100%;
+  padding: 0.85rem 0;
+  border: 0;
+  border-bottom: 1px solid var(--vitreum-line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--vitreum-charcoal);
+  font-size: 1.05rem;
+}
+
+.vitreum-contact__form textarea {
+  min-height: 9rem;
+  resize: vertical;
+}
+
+.vitreum-contact__form .vitreum-button {
+  justify-self: start;
+  margin-top: 0.75rem;
+  background: var(--vitreum-charcoal);
+  color: var(--vitreum-porcelain);
+}
+
+.vitreum-contact__form .vitreum-button:hover,
+.vitreum-contact__form .vitreum-button:focus-visible {
+  background: var(--vitreum-champagne);
+  color: var(--vitreum-charcoal);
+}
+
+.vitreum-contact__success {
+  padding: 1rem;
+  border: 1px solid rgb(92 118 95 / 0.35);
+  background: rgb(92 118 95 / 0.08);
+}
+
+.vitreum-contact__errors {
+  padding: 1rem;
+  border: 1px solid rgb(137 65 53 / 0.35);
+  background: rgb(137 65 53 / 0.08);
+}
+
+@media screen and (max-width: 749px) {
+  .vitreum-hero__content,
+  .vitreum-story__intro,
+  .vitreum-story__chapter,
+  .vitreum-story__outro,
+  .vitreum-contact {
+    width: min(100% - 2rem, 40rem);
+  }
+
+  .vitreum-hero {
+    min-height: 78svh;
+  }
+
+  .vitreum-hero__title {
+    font-size: clamp(3rem, 15vw, 5.5rem);
+  }
+
+  .vitreum-hero__description {
+    max-width: 22rem;
+  }
+
+  .vitreum-story__intro,
+  .vitreum-story__chapter,
+  .vitreum-story__outro,
+  .vitreum-contact,
+  .vitreum-custom {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .vitreum-story__intro {
+    min-height: 70svh;
+    padding: 6rem 0;
+  }
+
+  .vitreum-story__chapter {
+    min-height: 78svh;
+    padding: 6rem 0;
+  }
+
+  .vitreum-story__chapter::before {
+    display: none;
+  }
+
+  .vitreum-story__chapter h2 {
+    max-width: 9ch;
+  }
+
+  .vitreum-story__chapter-copy,
+  .vitreum-story__intro p:last-child {
+    margin-left: 0;
+  }
+
+  .vitreum-story__outro {
+    min-height: 68svh;
+    padding: 6rem 0;
+  }
+
+  .vitreum-story__outro .vitreum-button {
+    justify-self: start;
+  }
+
+  .vitreum-vortex__stage {
+    min-height: 36rem;
+  }
+
+  .vitreum-vortex__products {
+    width: 100%;
+    height: 26rem;
+  }
+
+  .vitreum-vortex__product {
+    width: clamp(6.5rem, 27vw, 9rem);
+  }
+
+  .vitreum-vortex__header h2 {
+    font-size: clamp(3rem, 15vw, 5rem);
+  }
+
+  .vitreum-contact {
+    padding: 6rem 0;
+  }
+
+  .vitreum-custom {
+    padding: 6rem 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .vitreum-hero__image,
+  .vitreum-hero__title span > span,
+  .vitreum-story__chapter h2,
+  .vitreum-story__chapter-copy,
+  .vitreum-story__product,
+  .vitreum-button,
+  .vitreum-vortex__product {
+    transition: none;
+  }
+
+  .vitreum-hero__image {
+    clip-path: inset(0);
+    transform: none;
+  }
+
+  .vitreum-hero__title span > span {
+    transform: none;
+  }
+
+  .vitreum-vortex__scroll {
+    min-height: 0;
+  }
+
+  .vitreum-vortex__stage {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    padding: 6rem 1rem;
+  }
+
+  .vitreum-vortex__products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    height: auto;
+  }
+
+  .vitreum-vortex__product {
+    position: relative;
+    top: auto;
+    left: auto;
+    width: auto;
+    transform: none !important;
+  }
+
+  .vitreum-grid-target .product-grid-container {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

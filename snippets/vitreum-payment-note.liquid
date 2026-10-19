@@ -1,0 +1,14 @@
+{%- doc -%}
+  Displays the cash-on-delivery payment note when enabled in theme settings.
+
+  @example
+  {% render 'vitreum-payment-note' %}
+{%- enddoc -%}
+{% if settings.vitreum_cash_on_delivery_only %}
+  <p class="vitreum-payment-note">
+    <strong>{{ settings.vitreum_cod_label | escape }}</strong>
+    {% if settings.vitreum_cod_details != blank %}
+      <span>{{ settings.vitreum_cod_details | escape }}</span>
+    {% endif %}
+  </p>
+{% endif %}

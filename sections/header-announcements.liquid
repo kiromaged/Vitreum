@@ -1,0 +1,232 @@
+
+
+
+  <script
+    src="{{ 'announcement-bar.js' | asset_url }}"
+    type="module"
+    fetchpriority="low"
+  ></script>
+
+
+{% render 'contrast-override', background_color: section.settings.background_color, section_id: section.id %}
+
+<div class="section-background color-custom-{{ section.id }}"></div>
+<aside
+  class="announcement-bar spacing-style section section--{{ section.settings.section_width }} color-custom-{{ section.id }}"
+  style="{% render 'spacing-padding', settings: section.settings %}; --announcement-text: {{ section.settings.text_color | default: "#E8D5B7" }}; --border-bottom-width: {{ section.settings.divider_width }}px;{% if section.settings.divider_color != blank %} --color-border: {{ section.settings.divider_color }};{% endif %}"
+>
+  
+
+  <announcement-bar-component
+    class="announcement-bar__slider"
+    autoplay="{{ section.settings.speed }}"
+    aria-live="off"
+  >
+    
+
+    <div class="announcement-bar__slides">
+      {% content_for 'blocks' %}
+    </div>
+  </announcement-bar-component>
+</aside>
+
+{% stylesheet %}
+  #header-group .announcement-bar.section {
+    --announcement-height: 36px;
+    height: var(--announcement-height);
+    min-height: var(--announcement-height);
+    padding-block: 0;
+    border: 0;
+    color: var(--announcement-text, #e8d5b7);
+    background: var(--color-background, #17191c);
+  }
+
+  .announcement-bar__slider {
+    position: relative;
+    display: grid;
+    align-items: center;
+    height: 100%;
+    min-width: 0;
+    grid-column: 1 / -1;
+  }
+
+  .announcement-bar__slides {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    max-width: 54rem;
+    margin-inline: auto;
+    overflow: hidden;
+  }
+
+  #header-group .announcement-bar__slide {
+    position: relative;
+    grid-area: 1 / 1;
+    display: grid;
+    align-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    padding: 0 12px;
+    content-visibility: visible;
+    color: var(--announcement-text, #e8d5b7);
+  }
+
+  .announcement-bar__slide[aria-hidden='true'] {
+    visibility: hidden;
+    pointer-events: none;
+  }
+
+  #header-group .announcement-bar .announcement-bar__text {
+    margin: 0;
+    color: var(--announcement-text, #e8d5b7);
+    font-family: var(--font-subheading--family);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+    transition: color 350ms ease;
+  }
+
+  #header-group .announcement-bar__slide:hover .announcement-bar__text,
+  #header-group .announcement-bar__slide:focus-within .announcement-bar__text {
+    color: #fff0d9;
+  }
+
+  .announcement-bar__link {
+    position: absolute;
+    inset: 3px 2px;
+    cursor: pointer;
+  }
+
+  .announcement-bar__link:focus-visible {
+    outline: 1px solid #e8d5b7;
+    outline-offset: -2px;
+    border-radius: 2px;
+  }
+
+  @media (max-width: 749px) {
+    .announcement-bar { --announcement-height: 36px; }
+    #header-group .announcement-bar .announcement-bar__text {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #header-group .announcement-bar .announcement-bar__text { transition: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "t:names.announcement_bar",
+  "blocks": [
+    {
+      "type": "_announcement"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "max_blocks": 2,
+  "settings": [
+    { "type": "color", "id": "text_color", "label": "Announcement text", "default": "#E8D5B7" },
+    {
+      "type": "range",
+      "id": "speed",
+      "label": "t:settings.scroll_speed",
+      "min": 2,
+      "max": 10,
+      "default": 4,
+      "unit": "sec"
+    },
+    {
+      "type": "header",
+      "content": "t:content.appearance"
+    },
+    {
+      "type": "select",
+      "id": "section_width",
+      "label": "t:settings.section_width",
+      "options": [
+        {
+          "value": "page-width",
+          "label": "t:options.page"
+        },
+        {
+          "value": "full-width",
+          "label": "t:options.full"
+        }
+      ],
+      "default": "page-width"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "t:settings.background_color",
+      "default": "#17191C"
+    },
+    {
+      "type": "range",
+      "id": "divider_width",
+      "label": "t:settings.divider_thickness",
+      "min": 0,
+      "max": 5,
+      "step": 0.5,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "t:settings.divider_color",
+      "placeholder": "t:settings.default",
+      "visible_if": "{{ section.settings.divider_width > 0 }}"
+    },
+    {
+      "type": "header",
+      "content": "t:content.padding"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "t:settings.top",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "t:settings.bottom",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    }
+  ],
+  "presets": [
+    {
+      "name": "t:names.announcement_bar",
+      "blocks": {
+        "announcement_1": {
+          "type": "_announcement",
+          "settings": { "text": "FROM SHATTERED GLASS TO TIMELESS ART." }
+        },
+        "announcement_2": {
+          "type": "_announcement",
+          "settings": { "text": "ONE OF ONE. NEVER MADE AGAIN." }
+        }
+      },
+      "block_order": ["announcement_1", "announcement_2"]
+    }
+  ]
+}
+{% endschema %}

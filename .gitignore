@@ -1,0 +1,22 @@
+# Local Shopify and browser sessions, test screenshots, and deployment backups
+.shopify/
+.playwright-cli/
+playwright-report/
+test-results/
+
+# Dependencies and local configuration
+node_modules/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+
+# Editor and operating system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.log

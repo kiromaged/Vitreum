@@ -1,0 +1,61 @@
+
+
+{%- doc -%}
+  Displays an unbranded Buy now action using Shopify's native product form.
+  Intended for product-form.liquid block.
+
+  @param {string} can_add_to_cart - Whether the product can be added to the cart
+  @param form_obj - The form object
+
+  @example
+  {% content_for 'block', type: 'accelerated-checkout', id: 'accelerated-checkout', can_add_to_cart: can_add_to_cart, form_obj: form %}
+{%- enddoc -%}
+
+{% liquid
+  assign product = closest.product
+  if request.visual_preview_mode and product == blank
+    assign product = collections.all.products.first
+  endif
+%}
+
+{% if product != blank and form_obj != blank %}
+  <div
+    class="accelerated-checkout-block"
+    ref="acceleratedCheckoutButtonContainer"
+    {{ block.shopify_attributes }}
+    {% if request.visual_preview_mode %}
+      data-shopify-visual-preview
+    {% endif %}
+    {% unless can_add_to_cart %}
+      hidden
+    {% endunless %}
+  >
+    <button
+      type="submit"
+      class="button button-secondary vitreum-buy-now"
+      name="return_to"
+      value="{{ routes.root_url }}checkout"
+      data-buy-now
+      {% unless can_add_to_cart %}disabled{% endunless %}
+    >
+      {{ block.settings.label | default: 'Buy now' | escape }}
+    </button>
+  </div>
+{% endif %}
+
+{% render 'buy-buttons-styles' %}
+
+{% schema %}
+{
+  "name": "Buy now",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Button label",
+      "default": "Buy now"
+    }
+  ]
+}
+{% endschema %}

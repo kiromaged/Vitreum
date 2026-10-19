@@ -1,0 +1,69 @@
+{%- doc -%}
+  Separate immersive artwork source; never changes Shopify catalog media.
+
+  @param {object} product - Original Shopify product.
+  @param {object} section - Owning section with optional product_cutout blocks.
+  @param {string} [context] - story or vortex.
+{%- enddoc -%}
+{%- liquid
+  assign visual = blank
+  assign visual_source = 'catalog'
+  for override in section.blocks
+    if override.type == 'product_cutout' and override.settings.product.id == product.id and override.settings.image != blank
+      assign visual = override.settings.image
+      assign visual_source = 'section'
+      assign visual_block = override
+      break
+    endif
+  endfor
+
+  if visual == blank
+    assign cutout_file = product.metafields.custom.vitreum_cutout.value
+    if cutout_file.media_type == 'image'
+      assign visual = cutout_file.preview_image
+      assign visual_source = 'metafield'
+    endif
+  endif
+
+  if visual == blank
+    assign visual = product.featured_image
+  endif
+
+  assign visual_kind = 'catalog'
+  if visual_source != 'catalog'
+    assign visual_kind = 'cutout'
+  endif
+
+  assign visual_width = 900
+  assign visual_widths = '360, 540, 720, 900'
+  assign visual_sizes = '(min-width: 750px) 32vw, 80vw'
+  if context == 'vortex'
+    assign visual_width = 720
+    assign visual_widths = '320, 480, 720'
+    assign visual_sizes = '(min-width: 750px) 14vw, 28vw'
+  endif
+  assign visual_alt = product.title | append: ' — glass artwork'
+  assign original = product.featured_image
+-%}
+<vitreum-product-visual
+  class="vitreum-object"
+  data-visual-kind="{{ visual_kind }}"
+  data-visual-source="{{ visual_source }}"
+  {{ visual_block.shopify_attributes }}
+  {% if original != blank and visual_kind == 'cutout' %}
+    data-fallback-src="{{ original | image_url: width: visual_width | escape }}"
+    data-fallback-srcset="{{ original | image_url: width: 360 | escape }} 360w, {{ original | image_url: width: 720 | escape }} 720w, {{ original | image_url: width: 900 | escape }} 900w"
+  {% endif %}
+>
+  {%- if visual != blank -%}
+    {{ visual | image_url: width: visual_width | image_tag:
+      widths: visual_widths,
+      sizes: visual_sizes,
+      loading: 'lazy',
+      alt: visual_alt,
+      class: 'vitreum-object__image'
+    }}
+  {%- else -%}
+    {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+  {%- endif -%}
+</vitreum-product-visual>

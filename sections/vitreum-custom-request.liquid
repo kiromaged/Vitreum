@@ -1,0 +1,69 @@
+<section class="vitreum-custom" data-section-id="{{ section.id }}">
+  <div class="vitreum-custom__intro">
+    <p class="vitreum-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h2>{{ section.settings.title }}</h2>
+    <p>{{ section.settings.description }}</p>
+    <a class="vitreum-button" href="{{ section.settings.secondary_link }}">{{ section.settings.secondary_label }}</a>
+  </div>
+
+  <div class="vitreum-custom__panel">
+    {% form 'contact', id: 'VitreumCustomRequestForm', class: 'vitreum-custom__form' %}
+      {% if form.posted_successfully? %}
+        <p class="vitreum-custom__success" tabindex="-1">{{ section.settings.success_message }}</p>
+      {% endif %}
+
+      {% if form.errors %}
+        <div class="vitreum-custom__errors" tabindex="-1">{{ form.errors | default_errors }}</div>
+      {% endif %}
+
+      <div class="vitreum-custom__field">
+        <label for="VitreumCustomName">{{ section.settings.name_label }}</label>
+        <input id="VitreumCustomName" type="text" name="contact[name]" autocomplete="name" required>
+      </div>
+
+      <div class="vitreum-custom__field">
+        <label for="VitreumCustomEmail">{{ section.settings.email_label }}</label>
+        <input id="VitreumCustomEmail" type="email" name="contact[email]" autocomplete="email" required>
+      </div>
+
+      <div class="vitreum-custom__field">
+        <label for="VitreumCustomBottle">{{ section.settings.bottle_label }}</label>
+        <input id="VitreumCustomBottle" type="text" name="contact[custom_bottle]" placeholder="Brand, bottle or reference">
+      </div>
+
+      <div class="vitreum-custom__field">
+        <label for="VitreumCustomMessage">{{ section.settings.message_label }}</label>
+        <textarea id="VitreumCustomMessage" name="contact[body]" required placeholder="Tell us about the piece you have in mind"></textarea>
+      </div>
+
+      <button class="vitreum-button" type="submit">{{ section.settings.submit_label }}</button>
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vitreum custom request",
+  "tag": "section",
+  "class": "vitreum-custom-section",
+  "enabled_on": {
+    "templates": ["index"]
+  },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "The private commission" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Not seeing your bottle?" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Tell the studio what you are looking for. We can discuss a specific bottle, a meaningful reference or a one-of-one idea made for your space." },
+    { "type": "text", "id": "secondary_label", "label": "Secondary link label", "default": "View the collection" },
+    { "type": "url", "id": "secondary_link", "label": "Secondary link", "default": "/collections/all" },
+    { "type": "text", "id": "name_label", "label": "Name label", "default": "Your name" },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Email address" },
+    { "type": "text", "id": "bottle_label", "label": "Bottle label", "default": "Bottle or reference" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "Your commission idea" },
+    { "type": "text", "id": "submit_label", "label": "Submit label", "default": "Start a conversation" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thank you. The studio will review your request and be in touch." }
+  ],
+  "presets": [
+    { "name": "Vitreum custom request" }
+  ]
+}
+{% endschema %}

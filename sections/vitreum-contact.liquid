@@ -1,0 +1,62 @@
+<section class="vitreum-contact" data-section-id="{{ section.id }}">
+  <div class="vitreum-contact__intro">
+    <p class="vitreum-eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ page.title | default: section.settings.title }}</h1>
+    <p>{{ section.settings.description }}</p>
+  </div>
+
+  <div>
+    {% form 'contact', id: 'VitreumContactForm', class: 'vitreum-contact__form' %}
+      {% if form.posted_successfully? %}
+        <p class="vitreum-contact__success" tabindex="-1">{{ section.settings.success_message }}</p>
+      {% endif %}
+
+      {% if form.errors %}
+        <div class="vitreum-contact__errors" tabindex="-1">
+          {{ form.errors | default_errors }}
+        </div>
+      {% endif %}
+
+      <div class="vitreum-contact__field">
+        <label for="VitreumContactName">{{ section.settings.name_label }}</label>
+        <input id="VitreumContactName" type="text" name="contact[name]" autocomplete="name" required>
+      </div>
+
+      <div class="vitreum-contact__field">
+        <label for="VitreumContactEmail">{{ section.settings.email_label }}</label>
+        <input id="VitreumContactEmail" type="email" name="contact[email]" autocomplete="email" required>
+      </div>
+
+      <div class="vitreum-contact__field">
+        <label for="VitreumContactMessage">{{ section.settings.message_label }}</label>
+        <textarea id="VitreumContactMessage" name="contact[body]" required></textarea>
+      </div>
+
+      <button class="vitreum-button" type="submit">{{ section.settings.submit_label }}</button>
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Vitreum contact",
+  "tag": "section",
+  "class": "vitreum-contact-section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Private viewings / commissions" },
+    { "type": "text", "id": "title", "label": "Title", "default": "Let’s make room for something rare." },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "For commissions, private viewings or questions about a piece, send a note to the studio." },
+    { "type": "text", "id": "name_label", "label": "Name label", "default": "Your name" },
+    { "type": "text", "id": "email_label", "label": "Email label", "default": "Email address" },
+    { "type": "text", "id": "message_label", "label": "Message label", "default": "Tell us what you are looking for" },
+    { "type": "text", "id": "submit_label", "label": "Submit label", "default": "Send to the studio" },
+    { "type": "text", "id": "success_message", "label": "Success message", "default": "Thank you. The studio will be in touch shortly." }
+  ],
+  "presets": [
+    { "name": "Vitreum contact" }
+  ]
+}
+{% endschema %}
